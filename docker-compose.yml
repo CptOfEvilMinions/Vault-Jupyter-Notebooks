@@ -1,0 +1,66 @@
+version: '2.2'
+services: 
+  ######################################### NGINX #########################################
+  nginx:
+    build: 
+      context: .
+      dockerfile: docker/Dockerfile-nginx
+    container_name: 'vault-nginx'
+    restart: unless-stopped
+    networks: 
+      - default
+      - vault-backend
+    ports: 
+      - 8000:80
+      - 8443:443
+    depends_on: 
+      - vault
+    cpus: 1
+    mem_limit: 150M
+    
+  ######################################### Vault #########################################
+  vault:
+    build: 
+      context: .
+      dockerfile: docker/Dockerfile-vault
+    container_name: 'vault-app-temp'
+    restart: unless-stopped
+    networks: 
+      - vault-backend
+    environment:
+      - VAULT_ADDR=http://127.0.0.1:8200
+      - VAULT_API_ADDR=http://127.0.0.1:8200
+    volumes:
+      - vault-policies:/vault/policies
+      - vault-data:/vault/data
+      - vault-logs:/vault/logs
+    cap_add:
+      - IPC_LOCK
+    depends_on:
+      - consul
+    cpus: 1
+    mem_limit: 300M
+    
+
+  ######################################### Consul #########################################
+  consul:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile-consul
+    container_name: 'vault-consul-temp'
+    restart: unless-stopped
+    networks: 
+      - vault-backend
+    volumes:
+      - consul-data:/consul/data
+    cpus: 1
+    mem_limit: 150M
+
+networks: 
+  vault-backend:
+
+volumes:
+  consul-data:
+  vault-policies:
+  vault-data:
+  vault-logs:

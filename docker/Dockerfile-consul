@@ -1,0 +1,7 @@
+FROM consul:1.8.5
+
+# add the config file
+COPY conf/consul/consul-config.hcl /consul/config/consul-config.hcl
+
+# run consul
+CMD consul agent -config-file=/consul/config/consul-config.hcl

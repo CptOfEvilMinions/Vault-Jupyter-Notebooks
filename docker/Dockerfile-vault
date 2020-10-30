@@ -1,0 +1,7 @@
+FROM vault:1.5.4
+
+# add the config file
+COPY conf/vault/vault-config.hcl /vault/config/vault-config.hcl
+
+# run vault
+CMD vault server -config=/vault/config/vault-config.hcl
