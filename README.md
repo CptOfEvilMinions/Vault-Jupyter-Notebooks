@@ -31,6 +31,11 @@ This project contains with a self-signed OpenSSL ceretificate which should ONLY 
 1. `source venv/bin/activate`
 1. `pip3 install -r requirements.txt`
 
+### Run playbook
+1. `jupyter-notebook Untitled.ipynb`
+1.  Select "Run" at the top
+1. Enter a SHA 256 file hash
+
 ## References
 * [Github - Alpine Non-root User](https://github.com/mhart/alpine-node/issues/48)
 * [Managing Secrets with Vault and Consul](https://testdriven.io/blog/managing-secrets-with-vault-and-consul/)
