@@ -1,0 +1,5 @@
+jupyterlab==2.2.9
+requests==2.24.0
+websocket==0.2.1
+websocket-client==0.57.0
+elasticsearch==7.7.0
